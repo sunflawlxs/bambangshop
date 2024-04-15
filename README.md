@@ -102,3 +102,13 @@ Meskipun pola Singleton dapat diimplementasikan dalam Rust, namun penggunaannya 
    Postman dilengkapi dengan fitur pengujian otomatis yang memungkinkan pembuatan dan pelaksanaan serangkaian pengujian otomatis untuk memverifikasi perilaku endpoint API, termasuk status kode respons, isi body respons, dan sebagainya.
    Selain itu, Postman memiliki fitur variabel lingkungan yang memudahkan dalam beralih antara lingkungan yang berbeda, seperti pengembangan, penyiapan, dan produksi saat menguji API.
 #### Reflection Publisher-3
+1. Observer Pattern has two variations: Push model (publisher pushes data to subscribers) and Pull model (subscribers pull data from publisher). In this tutorial case, which variation of Observer Pattern that we use?
+   Pada module ini, kita menggunakan variasi model Push dari Observer Pattern yang dapat dilihat dari penggunaan request HTTP POST untuk mengirimkan notifikasi kepada customer yang telah berlangganan.
+   Notifikasi ini dipicu oleh create, promote, atau delete produk.
+2. What are the advantages and disadvantages of using the other variation of Observer Pattern for this tutorial case? (example: if you answer Q1 with Push, then imagine if we used Pull)
+   Keuntungan dari pendekatan ini adalah mengurangi penggunaan sumber daya jaringan dan komputasi karena Subscriber hanya mengambil data saat diperlukan. Selain itu, Subscriber memiliki kendali penuh atas waktu pengambilan data yang memungkinkan mereka untuk menghindari pengambilan data yang tidak diperlukan.
+   Namun, kelemahannya adalah bahwa pelanggan harus secara aktif meminta pembaruan, yang dapat menyebabkan keterlambatan dalam mendapatkan informasi terbaru. Ini tidak efisien dalam situasi di mana pembaruan harus segera diterima. Selain itu, implementasi Model Pull dapat memerlukan penambahan logika di sisi pelanggan untuk mengelola permintaan dan pembaruan data dengan efisien.
+3. Explain what will happen to the program if we decide to not use multi-threading in the notification process.
+   Proses notifikasi akan dilakukan secara berurutan di mana setiap notifikasi diproses satu per satu. Kami menunggu hingga notifikasi sebelumnya selesai sebelum memproses yang berikutnya.
+   Jika terdapat banyak notifikasi yang perlu dikirim, proses ini dapat menjadi lambat dan menyebabkan keterlambatan dalam memberikan respons.
+   Namun, dengan menggunakan multi-threading, notifikasi dapat diproses secara paralel, yang dapat mempercepat proses serta meningkatkan responsivitas aplikasi. Selain itu, pendekatan ini lebih efisien ketika ingin mengirim banyak notifikasi.
